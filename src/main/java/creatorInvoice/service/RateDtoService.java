@@ -20,7 +20,7 @@ public class RateDtoService {
     public List<RateTableDto> fetchRatesInDateRangeFromTo(String table, String startDate, String endDate) {
         return url.getRatesInDateRangeFromTo(table, startDate, endDate);
     }
-    public RateCurrencyDto fetchRateAParticularcurrency(String table, String code) {
+    public RateCurrencyDto fetchRateAParticularCurrency(String table, String code) {
         return url.getRateAPArticularCurrency(table, code);
     }
 }
