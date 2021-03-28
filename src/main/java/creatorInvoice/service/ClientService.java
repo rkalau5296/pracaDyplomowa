@@ -23,9 +23,9 @@ public class ClientService {
     @Autowired
     private AdminConfig adminConfig;
 
-    private static final String SUBJECT = "New customer to fakturownia.pl";
-    private static final String SUBJECT_DELETE = "Delete customer from fakturownia.pl";
-    private static final String SUBJECT_UPDATE = "Update customer in fakturownia.pl";
+    private static final String SUBJECT = "New Client to fakturownia.pl";
+    private static final String SUBJECT_DELETE = "Delete Client from fakturownia.pl";
+    private static final String SUBJECT_UPDATE = "Update Client in fakturownia.pl";
 
     public List<ClientDto> fetchClients() {
 
@@ -40,18 +40,18 @@ public class ClientService {
     public ClientDto createCustomer(final AddClientDto addClientDto) {
         ClientDto newClient = url.postCustomer(addClientDto);
                ofNullable(newClient).ifPresent(clientDto ->  emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                "New client: "+ addClientDto.getClient().getName() + " has been created, and sent to fakturownia.pl.")));
+                "New product: "+ addClientDto.getClient().getName() + " has been created, and sent to fakturownia.pl.")));
                return newClient;
 
     }
     public void updateCustomer(final AddClientDto addClientDto, Long id) {
         url.updateCustomer(addClientDto, id);
         emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_UPDATE,
-                "The client id = " + id + " has been updated, and sent to fakturownia.pl. New customer name is " + addClientDto.getClient().getName()));
+                "The product id = " + id + " has been updated, and sent to fakturownia.pl. New customer name is " + addClientDto.getClient().getName()));
     }
     public void deleteCustomer(Long id) {
         url.deleteCustomerById(id);
         emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_DELETE,
-                "The customer id = " + id + " has been deleted from fakturownia.pl."));
+                "The product id = " + id + " has been deleted from fakturownia.pl."));
     }
 }

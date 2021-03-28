@@ -111,13 +111,14 @@ public class Url {
             return  new ProductDto();
         }
     }
-    public void postProduct(final AddProductDto addProductDto){
+    public ProductDto postProduct(final AddProductDto addProductDto){
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/products.json")
                 .build().encode().toUri();
         try{
-            restTemplate.postForObject(uri, addProductDto, AddProductDto.class);
+            return restTemplate.postForObject(uri, addProductDto, ProductDto.class);
         }catch(RestClientException e){
             LOGGER.error(e.getMessage(), e);
+            return new ProductDto();
         }
 
     }

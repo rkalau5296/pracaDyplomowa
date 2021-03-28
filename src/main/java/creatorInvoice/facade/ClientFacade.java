@@ -6,7 +6,6 @@ import creatorInvoice.mapper.ClientMapper;
 import creatorInvoice.model.Client;
 import creatorInvoice.repository.ClientRepository;
 import creatorInvoice.service.ClientService;
-import creatorInvoice.url.Url;
 import creatorInvoice.validator.ClientValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

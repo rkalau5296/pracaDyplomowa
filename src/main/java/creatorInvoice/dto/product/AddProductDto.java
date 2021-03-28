@@ -1,5 +1,6 @@
 package creatorInvoice.dto.product;
 
+import creatorInvoice.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class AddProductDto {
 
+    private Long id;
     private String api_token;
-    private ProductDto productDto;
+    private Product product;
 
 }
