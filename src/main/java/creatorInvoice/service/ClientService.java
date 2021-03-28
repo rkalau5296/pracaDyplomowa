@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
+
 @Service
 public class ClientService {
 
@@ -35,16 +37,17 @@ public class ClientService {
         return url.getCustomerById(id);
     }
 
-    public void createCustomer(final AddClientDto addClientDto) {
-         url.postCustomer(addClientDto);
-                emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                "New client: "+ addClientDto.getClientDto().getName() + " has been created, and sent to fakturownia.pl."));
+    public ClientDto createCustomer(final AddClientDto addClientDto) {
+        ClientDto newClient = url.postCustomer(addClientDto);
+               ofNullable(newClient).ifPresent(clientDto ->  emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
+                "New client: "+ addClientDto.getClient().getName() + " has been created, and sent to fakturownia.pl.")));
+               return newClient;
 
     }
     public void updateCustomer(final AddClientDto addClientDto, Long id) {
         url.updateCustomer(addClientDto, id);
         emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_UPDATE,
-                "The client id = " + id + " has been updated, and sent to fakturownia.pl. New customer name is " + addClientDto.getClientDto().getName()));
+                "The client id = " + id + " has been updated, and sent to fakturownia.pl. New customer name is " + addClientDto.getClient().getName()));
     }
     public void deleteCustomer(Long id) {
         url.deleteCustomerById(id);

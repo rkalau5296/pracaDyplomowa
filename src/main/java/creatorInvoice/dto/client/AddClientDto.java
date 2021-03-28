@@ -1,10 +1,10 @@
 package creatorInvoice.dto.client;
 
+import creatorInvoice.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,8 +12,7 @@ import lombok.ToString;
 @ToString
 public class AddClientDto {
 
+    private Long id;
     private String api_token;
-    private ClientDto clientDto;
-
-
+    private Client client;
 }

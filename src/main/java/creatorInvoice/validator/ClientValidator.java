@@ -18,21 +18,21 @@ public class ClientValidator {
         return clients;
     }
     public void validateClientById(final Long id) {
-        LOGGER.info("Starting fetching Client id = " + id);
-        LOGGER.info("Client id = " + id + " has been fetched.");
+        LOGGER.info("Starting fetching Client id: " + id);
+        LOGGER.info("Client id: " + id + " has been fetched.");
     }
 
     public void validateCreatingClient(final AddClientDto addClientDto) {
-        LOGGER.info("Starting creating a new Client = " + addClientDto);
-        LOGGER.info("Client = " + addClientDto + " has been created.");
+        LOGGER.info("Starting creating a new Client: " + addClientDto.getClient().getShortcut());
+        LOGGER.info("Client: " + addClientDto.getClient().getShortcut() + " has been created.");
     }
 
     public void validateDeletingClient(final Long id) {
-        LOGGER.info("Starting deleting Client id = " + id);
-        LOGGER.info("Client id = " + id + " has been deleted.");
+        LOGGER.info("Starting deleting Client id: " + id);
+        LOGGER.info("Client id: " + id + " has been deleted.");
     }
     public void validateUpdateClient(final AddClientDto addClientDto, Long id) {
-        LOGGER.info("Starting updating Client id = " + id + " " + addClientDto);
+        LOGGER.info("Starting updating Client id: " + id + " and name:" + addClientDto.getClient().getShortcut());
         LOGGER.info("Client id = " + id + " has been updated.");
     }
 

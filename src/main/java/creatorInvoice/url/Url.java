@@ -163,14 +163,14 @@ public class Url {
             return  new ClientDto();
         }
     }
-    public void postCustomer(final AddClientDto addClientDto){
+    public ClientDto postCustomer(final AddClientDto addClientDto){
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients.json")
                 .build().encode().toUri();
         try{
-             restTemplate.postForObject(uri, addClientDto, AddClientDto.class);
+             return restTemplate.postForObject(uri, addClientDto, ClientDto.class);
         }catch(RestClientException e){
             LOGGER.error(e.getMessage(), e);
-
+            return new ClientDto();
         }
     }
     public void updateCustomer(final AddClientDto addClientDto, Long id) {

@@ -39,9 +39,9 @@ public class ClientFacade {
         return clientService.fetchClientById(id);
     }
 
-    public void addClient(final AddClientDto addClientDto) {
+    public ClientDto addClient(final AddClientDto addClientDto) {
         clientValidator.validateCreatingClient(addClientDto);
-        clientService.createCustomer(addClientDto);
+        return clientService.createCustomer(addClientDto);
     }
     public void updateClient(final AddClientDto addClientDto, Long id) {
         clientValidator.validateUpdateClient(addClientDto, id);

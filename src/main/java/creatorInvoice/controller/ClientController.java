@@ -21,14 +21,14 @@ public class ClientController {
         return clientFacade.fetchClients();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getId/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/get/{id}")
     public ClientDto getClient (@PathVariable Long id) {
         return clientFacade.fetchClientById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/post")
-    public void addCLient (@RequestBody AddClientDto addClientDto) {
-        clientFacade.addClient(addClientDto);
+    public ClientDto addCLient (@RequestBody AddClientDto addClientDto) {
+        return clientFacade.addClient(addClientDto);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/put/{id}")

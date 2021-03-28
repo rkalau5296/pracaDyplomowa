@@ -1,11 +1,9 @@
 package creatorInvoice.model;
 
-
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
