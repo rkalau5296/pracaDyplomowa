@@ -1,6 +1,6 @@
 package creatorInvoice.dto.invoice;
 
-import creatorInvoice.model.invoice.position.Invoice;
+import creatorInvoice.model.invoice.buyer_name.Invoice;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AddInvoiceDto {
+public class UpdateBuyerNameInvoiceDto {
 
     private Long id;
     private String api_token;
     private Invoice invoice;
-
 }

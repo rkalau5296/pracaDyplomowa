@@ -6,6 +6,7 @@ import creatorInvoice.dto.client.AddClientDto;
 import creatorInvoice.dto.client.ClientDto;
 import creatorInvoice.dto.invoice.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
+import creatorInvoice.dto.invoice.UpdateBuyerNameInvoiceDto;
 import creatorInvoice.dto.product.AddProductDto;
 import creatorInvoice.dto.product.ProductDto;
 import creatorInvoice.dto.rate.RateCurrencyDto;
@@ -59,20 +60,21 @@ public class Url {
             return  new InvoiceDto();
         }
     }
-    public void postInvoice(final AddInvoiceDto addInvoiceDto){
+    public InvoiceDto postInvoice(final AddInvoiceDto addInvoiceDto){
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices.json")
                 .build().encode().toUri();
         try{
-            restTemplate.postForObject(uri, addInvoiceDto, AddInvoiceDto.class);
+            return restTemplate.postForObject(uri, addInvoiceDto, InvoiceDto.class);
         }catch(RestClientException e){
             LOGGER.error(e.getMessage(), e);
+            return new InvoiceDto();
         }
     }
-    public void updateInvoice(final AddInvoiceDto invoiceDto, Long id) {
+    public void updateInvoice(final UpdateBuyerNameInvoiceDto updateBuyerNameInvoiceDto, Long id) {
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices/" + id + ".json")
                 .build().encode().toUri();
         try{
-            restTemplate.put(uri, invoiceDto);
+            restTemplate.put(uri, updateBuyerNameInvoiceDto);
         }catch(RestClientException e){
             LOGGER.error(e.getMessage(), e);
         }
