@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@Entity(name = "invoicePosition")
+@Entity(name = "positionDetails")
 public class InvoicePosition {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

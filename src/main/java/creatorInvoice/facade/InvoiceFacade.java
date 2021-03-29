@@ -5,6 +5,8 @@ import creatorInvoice.dto.invoice.InvoiceDto;
 import creatorInvoice.dto.invoice.UpdateBuyerNameInvoiceDto;
 import creatorInvoice.mapper.InvoiceMapper;
 import creatorInvoice.model.Invoice;
+import creatorInvoice.model.InvoicePosition;
+import creatorInvoice.repository.InvoicePositionRepository;
 import creatorInvoice.repository.InvoiceRepository;
 import creatorInvoice.service.InvoiceService;
 import creatorInvoice.validator.InvoiceValidator;
@@ -23,7 +25,8 @@ public class InvoiceFacade {
     private InvoiceRepository invoiceRepository;
     @Autowired
     private InvoiceMapper invoiceMapper;
-
+    @Autowired
+    private InvoicePositionRepository invoicePositionRepository;
 
     public List<InvoiceDto> fetchInvoices() {
         List<InvoiceDto> filteredInvoices = invoiceService.fetchInvoices();
@@ -34,7 +37,10 @@ public class InvoiceFacade {
     }
     public InvoiceDto fetchInvoiceById(Long id) {
         invoiceValidator.validateInvoicesById(id);
-        return invoiceService.fetchInvoiceById(id);
+        InvoiceDto invoiceDto = invoiceService.fetchInvoiceById(id);
+        List<InvoicePosition> positions = invoiceDto.getPositions();
+        positions.forEach(position ->invoicePositionRepository.save(position));
+        return invoiceDto;
     }
     public InvoiceDto createInvoice(final AddInvoiceDto addInvoiceDto) {
         InvoiceDto fetchedInvoice = invoiceService.createInvoice(addInvoiceDto);
