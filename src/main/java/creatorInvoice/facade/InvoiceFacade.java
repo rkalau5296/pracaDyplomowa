@@ -3,6 +3,7 @@ package creatorInvoice.facade;
 import creatorInvoice.dto.invoice.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
 import creatorInvoice.dto.invoice.UpdateBuyerDetailsInvoiceDto;
+import creatorInvoice.dto.invoice.UpdatePositionInvoiceDto;
 import creatorInvoice.mapper.InvoiceMapper;
 import creatorInvoice.model.Invoice;
 import creatorInvoice.model.InvoicePosition;
@@ -51,9 +52,13 @@ public class InvoiceFacade {
         invoiceValidator.validateDeletingInvoice(id);
         invoiceService.deleteInvoice(id);
     }
-    public void updateInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id) {
-        invoiceValidator.validateUpdateInvoice(updateBuyerDetailsInvoiceDto, id);
-        invoiceService.updateInvoice(updateBuyerDetailsInvoiceDto, id);
+    public void updateBuyerDetailsInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id) {
+        invoiceValidator.validateUpdateBuyerInvoice(updateBuyerDetailsInvoiceDto, id);
+        invoiceService.updateBuyerInvoice(updateBuyerDetailsInvoiceDto, id);
+    }
+    public void updatePositionInvoice(final UpdatePositionInvoiceDto updatePositionInvoiceDto, Long id) {
+        invoiceValidator.validateUpdatePostionInvoice(updatePositionInvoiceDto, id);
+        invoiceService.updatePositionInvoice(updatePositionInvoiceDto, id);
     }
 
 

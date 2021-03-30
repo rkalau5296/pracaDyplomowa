@@ -4,6 +4,7 @@ import creatorInvoice.config.AdminConfig;
 import creatorInvoice.dto.invoice.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
 import creatorInvoice.dto.invoice.UpdateBuyerDetailsInvoiceDto;
+import creatorInvoice.dto.invoice.UpdatePositionInvoiceDto;
 import creatorInvoice.mail.Mail;
 import creatorInvoice.mail.SimpleEmailService;
 import creatorInvoice.url.Url;
@@ -41,8 +42,15 @@ public class InvoiceService {
             "New invoice to: "+ addInvoiceDto.getInvoice().getId() + " has been created, and sent to fakturownia.pl.")));
         return newInvoice;
     }
-    public void updateInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id){
-        url.updateInvoice(updateBuyerDetailsInvoiceDto, id);
+    public void updateBuyerInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id){
+        url.updateBuyerInvoice(updateBuyerDetailsInvoiceDto, id);
+        emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_UPDATE,
+                "The invoice id = " + id + " has been updated, and sent to fakturownia.pl."));
+
+    }
+
+    public void updatePositionInvoice(final UpdatePositionInvoiceDto updatePositionInvoiceDto, Long id){
+        url.updatePositionInvoice(updatePositionInvoiceDto, id);
         emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_UPDATE,
                 "The invoice id = " + id + " has been updated, and sent to fakturownia.pl."));
 

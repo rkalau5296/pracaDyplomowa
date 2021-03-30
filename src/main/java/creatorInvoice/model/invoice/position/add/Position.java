@@ -1,4 +1,4 @@
-package creatorInvoice.model.invoice.position;
+package creatorInvoice.model.invoice.position.add;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
