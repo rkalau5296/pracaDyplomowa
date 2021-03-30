@@ -38,12 +38,12 @@ public class InvoiceValidator {
         LOGGER.info("Invoice id = " + id + " has been deleted.");
     }
     public void validateUpdateBuyerInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id) {
-        LOGGER.info("Starting updating invoice id = " + id + " " + updateBuyerDetailsInvoiceDto);
+        LOGGER.info("Starting updating invoice id = " + id + " " + updateBuyerDetailsInvoiceDto.getInvoice().getBuyer_name());
         LOGGER.info("Invoice id = " + id + " has been updated.");
     }
 
     public void validateUpdatePostionInvoice(final UpdatePositionInvoiceDto updatePositionInvoiceDto, Long id) {
-        LOGGER.info("Starting updating invoice id = " + id + " " + updatePositionInvoiceDto);
+        LOGGER.info("Starting updating invoice id = " + id + " " + updatePositionInvoiceDto.getInvoice());
         LOGGER.info("Invoice id = " + id + " has been updated.");
     }
 
