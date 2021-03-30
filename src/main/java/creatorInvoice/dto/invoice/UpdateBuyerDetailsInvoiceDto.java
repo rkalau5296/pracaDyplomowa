@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UpdateBuyerNameInvoiceDto {
+public class UpdateBuyerDetailsInvoiceDto {
 
     private Long id;
     private String api_token;

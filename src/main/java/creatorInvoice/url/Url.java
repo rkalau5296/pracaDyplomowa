@@ -6,7 +6,7 @@ import creatorInvoice.dto.client.AddClientDto;
 import creatorInvoice.dto.client.ClientDto;
 import creatorInvoice.dto.invoice.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
-import creatorInvoice.dto.invoice.UpdateBuyerNameInvoiceDto;
+import creatorInvoice.dto.invoice.UpdateBuyerDetailsInvoiceDto;
 import creatorInvoice.dto.product.AddProductDto;
 import creatorInvoice.dto.product.ProductDto;
 import creatorInvoice.dto.rate.RateCurrencyDto;
@@ -70,11 +70,11 @@ public class Url {
             return new InvoiceDto();
         }
     }
-    public void updateInvoice(final UpdateBuyerNameInvoiceDto updateBuyerNameInvoiceDto, Long id) {
+    public void updateInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id) {
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices/" + id + ".json")
                 .build().encode().toUri();
         try{
-            restTemplate.put(uri, updateBuyerNameInvoiceDto);
+            restTemplate.put(uri, updateBuyerDetailsInvoiceDto);
         }catch(RestClientException e){
             LOGGER.error(e.getMessage(), e);
         }

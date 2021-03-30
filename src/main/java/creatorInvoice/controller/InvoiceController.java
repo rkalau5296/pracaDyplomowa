@@ -2,7 +2,7 @@ package creatorInvoice.controller;
 
 import creatorInvoice.dto.invoice.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
-import creatorInvoice.dto.invoice.UpdateBuyerNameInvoiceDto;
+import creatorInvoice.dto.invoice.UpdateBuyerDetailsInvoiceDto;
 import creatorInvoice.facade.InvoiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +33,8 @@ public class InvoiceController {
         return invoiceFacade.createInvoice(addInvoiceDto);
     }
     @RequestMapping(method = RequestMethod.PUT, value = "/put/{id}")
-    public void updateInvoice (@RequestBody UpdateBuyerNameInvoiceDto updateBuyerNameInvoiceDto, @PathVariable Long id){
-        invoiceFacade.updateInvoice(updateBuyerNameInvoiceDto, id);
+    public void updateInvoice (@RequestBody UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, @PathVariable Long id){
+        invoiceFacade.updateInvoice(updateBuyerDetailsInvoiceDto, id);
     }
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
     public void deleteInvoice (@PathVariable Long id){

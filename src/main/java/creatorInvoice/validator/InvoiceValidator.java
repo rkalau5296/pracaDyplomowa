@@ -3,7 +3,7 @@ package creatorInvoice.validator;
 
 import creatorInvoice.dto.invoice.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
-import creatorInvoice.dto.invoice.UpdateBuyerNameInvoiceDto;
+import creatorInvoice.dto.invoice.UpdateBuyerDetailsInvoiceDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -36,8 +36,8 @@ public class InvoiceValidator {
         LOGGER.info("Starting deleting invoice id = " + id);
         LOGGER.info("Invoice id = " + id + " has been deleted.");
     }
-    public void validateUpdateInvoice(final UpdateBuyerNameInvoiceDto updateBuyerNameInvoiceDto, Long id) {
-        LOGGER.info("Starting updating invoice id = " + id + " " + updateBuyerNameInvoiceDto);
+    public void validateUpdateInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id) {
+        LOGGER.info("Starting updating invoice id = " + id + " " + updateBuyerDetailsInvoiceDto);
         LOGGER.info("Invoice id = " + id + " has been updated.");
     }
 
