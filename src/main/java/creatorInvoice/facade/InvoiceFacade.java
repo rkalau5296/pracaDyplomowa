@@ -1,9 +1,9 @@
 package creatorInvoice.facade;
 
-import creatorInvoice.dto.invoice.AddInvoiceDto;
+import creatorInvoice.dto.invoice.add.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
-import creatorInvoice.dto.invoice.UpdateBuyerDetailsInvoiceDto;
-import creatorInvoice.dto.invoice.UpdatePositionInvoiceDto;
+import creatorInvoice.dto.invoice.modify.buyer_name.UpdateBuyerDetailsInvoiceDto;
+import creatorInvoice.dto.invoice.modify.position.UpdatePositionInvoiceDto;
 import creatorInvoice.mapper.InvoiceMapper;
 import creatorInvoice.model.Invoice;
 import creatorInvoice.model.InvoicePosition;

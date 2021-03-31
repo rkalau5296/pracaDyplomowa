@@ -1,6 +1,6 @@
-package creatorInvoice.dto.invoice;
+package creatorInvoice.dto.invoice.modify.position;
 
-import creatorInvoice.model.invoice.buyer_name.Invoice;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class UpdateBuyerDetailsInvoiceDto {
+public class UpdatePositionInvoiceDto {
 
     private Long id;
     private String api_token;
-    private Invoice invoice;
+    private InvoiceDto invoice;
+
 }

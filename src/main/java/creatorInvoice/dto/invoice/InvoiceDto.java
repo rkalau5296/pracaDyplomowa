@@ -85,5 +85,5 @@ public class InvoiceDto {
     private int product_id;
 
     private List<InvoicePosition> positions;
-    
+
 }

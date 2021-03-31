@@ -8,6 +8,7 @@ import static java.util.stream.Collectors.toList;
 
 @Component
 public class InvoiceMapper {
+
     public List<Invoice> mapToListInvoices(final List<InvoiceDto> invoiceDtos) {
         return
                 invoiceDtos.stream()

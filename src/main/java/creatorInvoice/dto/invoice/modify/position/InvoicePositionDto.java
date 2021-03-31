@@ -1,18 +1,17 @@
-package creatorInvoice.model.invoice.position.modify;
+package creatorInvoice.dto.invoice.modify.position;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @ToString
-public class Position {
+public class InvoicePositionDto {
 
     private Long id;
     private String name;

@@ -1,4 +1,4 @@
-package creatorInvoice.model.invoice.buyer_name;
+package creatorInvoice.dto.invoice.modify.buyer_name;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 
-public class Invoice {
+public class InvoiceDto {
 
     private String buyer_name;
     private String buyer_tax_no;

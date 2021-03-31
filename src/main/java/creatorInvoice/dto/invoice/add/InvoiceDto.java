@@ -1,19 +1,17 @@
-package creatorInvoice.model.invoice.position.modify;
+package creatorInvoice.dto.invoice.add;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
-public class Invoice {
+public class InvoiceDto {
 
     private Long id;
-    private List<Position> positions;
-
+    private int payment_to_kind;
+    private int client_id;
+    private List<PositionDto> positions;
 }
