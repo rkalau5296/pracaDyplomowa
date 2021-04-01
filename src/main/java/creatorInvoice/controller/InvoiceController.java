@@ -4,6 +4,7 @@ import creatorInvoice.dto.invoice.modify.buyer_name.UpdateBuyerDetailsInvoiceDto
 import creatorInvoice.dto.invoice.modify.position.UpdatePositionInvoiceDto;
 import creatorInvoice.dto.invoice.add.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
+import creatorInvoice.dto.invoice.modify.position.delete.DeleteInvoicePositionDto;
 import creatorInvoice.facade.InvoiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,10 @@ public class InvoiceController {
     @RequestMapping(method = RequestMethod.PUT, value = "/put/position/{id}")
     public void updatePositionDetailsInvoice (@RequestBody UpdatePositionInvoiceDto updatePositionInvoiceDto, @PathVariable Long id){
         invoiceFacade.updatePositionInvoice(updatePositionInvoiceDto, id);
+    }
+    @RequestMapping(method = RequestMethod.PUT, value = "/put/deletePosition/{id}")
+    public void updatePositionDetailsInvoice (@RequestBody DeleteInvoicePositionDto deleteInvoicePositionDto, @PathVariable Long id){
+        invoiceFacade.deletePositionInvoice(deleteInvoicePositionDto, id);
     }
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
     public void deleteInvoice (@PathVariable Long id){

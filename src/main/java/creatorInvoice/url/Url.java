@@ -8,6 +8,7 @@ import creatorInvoice.dto.invoice.modify.buyer_name.UpdateBuyerDetailsInvoiceDto
 import creatorInvoice.dto.invoice.modify.position.UpdatePositionInvoiceDto;
 import creatorInvoice.dto.invoice.add.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
+import creatorInvoice.dto.invoice.modify.position.delete.DeleteInvoicePositionDto;
 import creatorInvoice.dto.product.AddProductDto;
 import creatorInvoice.dto.product.ProductDto;
 import creatorInvoice.dto.rate.RateCurrencyDto;
@@ -85,6 +86,16 @@ public class Url {
                 .build().encode().toUri();
         try{
             restTemplate.put(uri, updatePositionInvoiceDto);
+        }catch(RestClientException e){
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+    public void deletePositionInvoice(final DeleteInvoicePositionDto deleteInvoicePositionDto, Long id) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices/" + id + ".json")
+                .build().encode().toUri();
+        try{
+            restTemplate.put(uri, deleteInvoicePositionDto);
         }catch(RestClientException e){
             LOGGER.error(e.getMessage(), e);
         }
@@ -239,5 +250,6 @@ public class Url {
             return new RateCurrencyDto();
         }
     }
+
 
 }

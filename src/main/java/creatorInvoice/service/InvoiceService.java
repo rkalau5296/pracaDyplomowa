@@ -5,6 +5,7 @@ import creatorInvoice.dto.invoice.add.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
 import creatorInvoice.dto.invoice.modify.buyer_name.UpdateBuyerDetailsInvoiceDto;
 import creatorInvoice.dto.invoice.modify.position.UpdatePositionInvoiceDto;
+import creatorInvoice.dto.invoice.modify.position.delete.DeleteInvoicePositionDto;
 import creatorInvoice.mail.Mail;
 import creatorInvoice.mail.SimpleEmailService;
 import creatorInvoice.url.Url;
@@ -62,4 +63,7 @@ public class InvoiceService {
     }
 
 
+    public void deletePositionInvoice(final DeleteInvoicePositionDto deleteInvoicePositionDto, Long id) {
+        url.deletePositionInvoice(deleteInvoicePositionDto, id);
+    }
 }
