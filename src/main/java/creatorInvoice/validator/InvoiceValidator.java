@@ -5,6 +5,7 @@ import creatorInvoice.dto.invoice.add.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
 import creatorInvoice.dto.invoice.modify.buyer_name.UpdateBuyerDetailsInvoiceDto;
 import creatorInvoice.dto.invoice.modify.position.UpdatePositionInvoiceDto;
+import creatorInvoice.dto.invoice.modify.position.addnew.AddNewPosition;
 import creatorInvoice.dto.invoice.modify.position.delete.DeleteInvoicePositionDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,11 @@ public class InvoiceValidator {
 
     public void validateDeletingPositionInvoice(DeleteInvoicePositionDto deleteInvoicePositionDto, Long id) {
         LOGGER.info("Starting updating invoice id = " + id + " " + deleteInvoicePositionDto.getInvoice());
+        LOGGER.info("Invoice id = " + id + " has been updated.");
+    }
+
+    public void validateAddPositionInvoice(AddNewPosition addNewPosition, Long id) {
+        LOGGER.info("Starting updating invoice id = " + id + " " + addNewPosition.getInvoice());
         LOGGER.info("Invoice id = " + id + " has been updated.");
     }
 }

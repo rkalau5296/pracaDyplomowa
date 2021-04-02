@@ -4,6 +4,7 @@ import creatorInvoice.dto.invoice.add.AddInvoiceDto;
 import creatorInvoice.dto.invoice.InvoiceDto;
 import creatorInvoice.dto.invoice.modify.buyer_name.UpdateBuyerDetailsInvoiceDto;
 import creatorInvoice.dto.invoice.modify.position.UpdatePositionInvoiceDto;
+import creatorInvoice.dto.invoice.modify.position.addnew.AddNewPosition;
 import creatorInvoice.dto.invoice.modify.position.delete.DeleteInvoicePositionDto;
 import creatorInvoice.mapper.InvoiceMapper;
 import creatorInvoice.model.Invoice;
@@ -66,5 +67,10 @@ public class InvoiceFacade {
     public void deletePositionInvoice(DeleteInvoicePositionDto deleteInvoicePositionDto, Long id) {
         invoiceValidator.validateDeletingPositionInvoice(deleteInvoicePositionDto, id);
         invoiceService.deletePositionInvoice(deleteInvoicePositionDto, id);
+    }
+
+    public void addNexPositionToInvoice(AddNewPosition addNewPosition, Long id) {
+        invoiceValidator.validateAddPositionInvoice(addNewPosition, id);
+        invoiceService.addNextPositionInvoice(addNewPosition, id);
     }
 }
