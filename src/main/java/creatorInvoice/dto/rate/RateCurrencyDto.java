@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class RateCurrencyDto {
 
-    String table;
-    String currency;
-    String code;
-    List<RatesCurrency> rates;
+    private String table;
+    private String currency;
+    private String code;
+    private List<RatesCurrency> rates;
 }

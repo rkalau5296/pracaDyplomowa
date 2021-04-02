@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RatesCurrency {
 
-    String no;
+    private String no;
     private String effectiveDate;
-    double mid;
+    private double mid;
 }

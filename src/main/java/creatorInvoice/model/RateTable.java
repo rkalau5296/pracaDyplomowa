@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RateTable {
+
     private String table;
     private String no;
     private String effectiveDate;

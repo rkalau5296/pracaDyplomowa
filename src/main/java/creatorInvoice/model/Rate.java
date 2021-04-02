@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Rate {
-        String currency;
-        String code;
-        double mid;
+
+        private String currency;
+        private String code;
+        private double mid;
 }

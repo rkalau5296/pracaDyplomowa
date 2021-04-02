@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RateDto {
-    String currency;
-    String code;
-    double mid;
+
+    private String currency;
+    private String code;
+    private double mid;
 }
 
