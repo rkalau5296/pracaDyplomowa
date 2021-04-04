@@ -27,6 +27,11 @@ public class InvoiceController {
         return invoiceFacade.fetchInvoices();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getActualMonth")
+    public List<InvoiceDto> getInvoicesActualMonth() {
+        return invoiceFacade.fetchInvoicesActualMonth();
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/get/{id}")
     public InvoiceDto getInvoice (@PathVariable Long id) {
         return invoiceFacade.fetchInvoiceById(id);

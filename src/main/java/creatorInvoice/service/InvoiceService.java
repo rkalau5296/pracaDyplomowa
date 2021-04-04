@@ -34,6 +34,10 @@ public class InvoiceService {
     public List<InvoiceDto> fetchInvoices() {
         return url.getInvoices();
     }
+
+    public List<InvoiceDto> fetchInvoicesActualMonth() {
+        return url.getInvoicesActualMonth();
+    }
     public InvoiceDto fetchInvoiceById(Long id) {
         return url.getInvoicesById(id);
     }
@@ -44,6 +48,7 @@ public class InvoiceService {
             "New invoice to: "+ addInvoiceDto.getInvoice().getId() + " has been created, and sent to fakturownia.pl.")));
         return newInvoice;
     }
+
     public void updateBuyerInvoice(final UpdateBuyerDetailsInvoiceDto updateBuyerDetailsInvoiceDto, Long id){
         url.updateBuyerInvoice(updateBuyerDetailsInvoiceDto, id);
         emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_UPDATE,
@@ -71,4 +76,6 @@ public class InvoiceService {
     public void addNextPositionInvoice(AddNewPosition addNewPosition, Long id) {
         url.addNextPositionToInvoice(addNewPosition,id);
     }
+
+
 }

@@ -21,6 +21,10 @@ public class InvoiceValidator {
         LOGGER.info("Starting fetching invoices...");
         LOGGER.info("Invoices have been fetched. Current list size: " + invoices.size());
     }
+    public void validateInvoicesActualMonth(List<InvoiceDto> invoiceDtos) {
+        LOGGER.info("Starting fetching invoices...");
+        LOGGER.info("Invoices have been fetched. Current list size: " + invoiceDtos.size());
+    }
     public void validateInvoicesById(final Long id) {
         LOGGER.info("Starting fetching invoice id = " + id);
         LOGGER.info("Invoice id = " + id + " has been fetched.");
@@ -54,4 +58,6 @@ public class InvoiceValidator {
         LOGGER.info("Starting updating invoice id = " + id + " " + addNewPosition.getInvoice());
         LOGGER.info("Invoice id = " + id + " has been updated.");
     }
+
+
 }
