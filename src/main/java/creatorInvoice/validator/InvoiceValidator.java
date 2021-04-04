@@ -25,6 +25,12 @@ public class InvoiceValidator {
         LOGGER.info("Starting fetching invoices...");
         LOGGER.info("Invoices have been fetched. Current list size: " + invoiceDtos.size());
     }
+
+    public void fetchParticularClientInvoices(List<InvoiceDto> filteredInvoices) {
+        LOGGER.info("Starting fetching invoices...");
+        LOGGER.info("Invoices have been fetched. Current list size: " + filteredInvoices.size());
+    }
+
     public void validateInvoicesById(final Long id) {
         LOGGER.info("Starting fetching invoice id = " + id);
         LOGGER.info("Invoice id = " + id + " has been fetched.");
@@ -58,6 +64,7 @@ public class InvoiceValidator {
         LOGGER.info("Starting updating invoice id = " + id + " " + addNewPosition.getInvoice());
         LOGGER.info("Invoice id = " + id + " has been updated.");
     }
+
 
 
 }

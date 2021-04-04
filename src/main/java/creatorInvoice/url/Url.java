@@ -64,6 +64,17 @@ public class Url {
             return  new ArrayList<>();
         }
     }
+    public List<InvoiceDto> getParticularClientInvoices(Long clientId){
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices.json?client_id=" + clientId + "&" + invoiceConfig.getInvoiceToken())
+                .build().encode().toUri();
+        try{
+            InvoiceDto[] invoiceResponse = restTemplate.getForObject(uri, InvoiceDto[].class);
+            return Arrays.asList(Optional.ofNullable(invoiceResponse).orElse(new InvoiceDto[0]));
+        }catch(RestClientException e){
+            LOGGER.error(e.getMessage(), e);
+            return  new ArrayList<>();
+        }
+    }
     public InvoiceDto getInvoicesById(Long id){
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices/" + id +".json?&" + invoiceConfig.getInvoiceToken())
                 .build().encode().toUri();

@@ -43,6 +43,12 @@ public class InvoiceFacade {
         invoiceValidator.validateInvoicesActualMonth(filteredInvoices);
         return filteredInvoices;
     }
+
+    public List<InvoiceDto> fetchParticularClientInvoices(Long clientId) {
+        List<InvoiceDto> filteredInvoices = invoiceService.fetchParticularClientInvoices(clientId);
+        invoiceValidator.fetchParticularClientInvoices(filteredInvoices);
+        return filteredInvoices;
+    }
     public InvoiceDto fetchInvoiceById(Long id) {
         invoiceValidator.validateInvoicesById(id);
         InvoiceDto invoiceDto = invoiceService.fetchInvoiceById(id);
@@ -78,6 +84,7 @@ public class InvoiceFacade {
         invoiceValidator.validateAddPositionInvoice(addNewPosition, id);
         invoiceService.addNextPositionInvoice(addNewPosition, id);
     }
+
 
 
 }

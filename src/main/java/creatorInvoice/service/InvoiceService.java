@@ -38,6 +38,10 @@ public class InvoiceService {
     public List<InvoiceDto> fetchInvoicesActualMonth() {
         return url.getInvoicesActualMonth();
     }
+
+    public List<InvoiceDto> fetchParticularClientInvoices(Long clientId) {
+        return url.getParticularClientInvoices(clientId);
+    }
     public InvoiceDto fetchInvoiceById(Long id) {
         return url.getInvoicesById(id);
     }
@@ -76,6 +80,7 @@ public class InvoiceService {
     public void addNextPositionInvoice(AddNewPosition addNewPosition, Long id) {
         url.addNextPositionToInvoice(addNewPosition,id);
     }
+
 
 
 }
