@@ -43,7 +43,18 @@ public class Url {
 
     //Invoice
     public List<InvoiceDto> getInvoices(){
-        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices.json?include_positions=true&" + invoiceConfig.getInvoiceToken()+"&page=1")
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices.json?include_positions=true&" + invoiceConfig.getInvoiceToken())
+                .build().encode().toUri();
+        try{
+            InvoiceDto[] invoiceResponse = restTemplate.getForObject(uri, InvoiceDto[].class);
+            return Arrays.asList(Optional.ofNullable(invoiceResponse).orElse(new InvoiceDto[0]));
+        }catch(RestClientException e){
+            LOGGER.error(e.getMessage(), e);
+            return  new ArrayList<>();
+        }
+    }
+    public List<InvoiceDto> getInvoiceInRange(String dateFrom, String dateTo) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices.json?include_positions=true&period=more&date_from=" + dateFrom + "&date_to=" + dateTo + "&" +invoiceConfig.getInvoiceToken())
                 .build().encode().toUri();
         try{
             InvoiceDto[] invoiceResponse = restTemplate.getForObject(uri, InvoiceDto[].class);
@@ -54,7 +65,7 @@ public class Url {
         }
     }
     public List<InvoiceDto> getInvoicesActualMonth(){
-        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices.json?period=this_month&include_positions=true&" + invoiceConfig.getInvoiceToken()+"&page=1")
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/invoices.json?period=this_month&include_positions=true&" + invoiceConfig.getInvoiceToken())
                 .build().encode().toUri();
         try{
             InvoiceDto[] invoiceResponse = restTemplate.getForObject(uri, InvoiceDto[].class);

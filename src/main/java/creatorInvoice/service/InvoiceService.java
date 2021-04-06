@@ -38,7 +38,9 @@ public class InvoiceService {
     public List<InvoiceDto> fetchInvoicesActualMonth() {
         return url.getInvoicesActualMonth();
     }
-
+    public List<InvoiceDto> fetchInvoiceInRange(String dateFrom, String dateTo) {
+        return url.getInvoiceInRange(dateFrom, dateTo);
+    }
     public List<InvoiceDto> fetchParticularClientInvoices(Long clientId) {
         return url.getParticularClientInvoices(clientId);
     }

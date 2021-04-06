@@ -38,6 +38,11 @@ public class InvoiceFacade {
         invoiceValidator.validateInvoices(filteredInvoices);
         return filteredInvoices;
     }
+    public List<InvoiceDto> fetchInvoiceInRange(String dateFrom, String dateTo) {
+        List<InvoiceDto> filteredInvoices = invoiceService.fetchInvoiceInRange(dateFrom, dateTo);
+        invoiceValidator.validatingInvoice(filteredInvoices);
+        return filteredInvoices;
+    }
     public List<InvoiceDto> fetchInvoicesActualMonth() {
         List<InvoiceDto> filteredInvoices = invoiceService.fetchInvoicesActualMonth();
         invoiceValidator.validateInvoicesActualMonth(filteredInvoices);

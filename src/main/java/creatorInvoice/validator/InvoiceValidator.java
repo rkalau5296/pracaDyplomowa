@@ -21,6 +21,10 @@ public class InvoiceValidator {
         LOGGER.info("Starting fetching invoices...");
         LOGGER.info("Invoices have been fetched. Current list size: " + invoices.size());
     }
+    public void validatingInvoice(List<InvoiceDto> invoices) {
+        LOGGER.info("Starting fetching invoices...");
+        LOGGER.info("Invoices have been fetched. Current list size: " + invoices.size());
+    }
     public void validateInvoicesActualMonth(List<InvoiceDto> invoiceDtos) {
         LOGGER.info("Starting fetching invoices...");
         LOGGER.info("Invoices have been fetched. Current list size: " + invoiceDtos.size());
