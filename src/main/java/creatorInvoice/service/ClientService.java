@@ -29,29 +29,45 @@ public class ClientService {
 
     public List<ClientDto> fetchClients() {
 
-        return url.getCustomers();
+        return url.getClients();
     }
 
     public ClientDto fetchClientById(Long id) {
 
-        return url.getCustomerById(id);
+        return url.getClientById(id);
     }
 
-    public ClientDto createCustomer(final AddClientDto addClientDto) {
-        ClientDto newClient = url.postCustomer(addClientDto);
+    public ClientDto createClient(final AddClientDto addClientDto) {
+        ClientDto newClient = url.postClient(addClientDto);
                ofNullable(newClient).ifPresent(clientDto ->  emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
                 "New product: "+ addClientDto.getClient().getName() + " has been created, and sent to fakturownia.pl.")));
                return newClient;
 
     }
-    public void updateCustomer(final AddClientDto addClientDto, Long id) {
-        url.updateCustomer(addClientDto, id);
+    public void updateClient(final AddClientDto addClientDto, Long id) {
+        url.updateClient(addClientDto, id);
         emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_UPDATE,
                 "The product id = " + id + " has been updated, and sent to fakturownia.pl. New customer name is " + addClientDto.getClient().getName()));
     }
-    public void deleteCustomer(Long id) {
-        url.deleteCustomerById(id);
+    public void deleteClient(Long id) {
+        url.deleteClient(id);
         emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT_DELETE,
                 "The product id = " + id + " has been deleted from fakturownia.pl."));
+    }
+
+    public List<ClientDto> fetchClientsByName(String name) {
+        return url.getClientsByName(name);
+    }
+
+    public List<ClientDto> fetchClientByEmailAddress(String email_address) {
+        return url.getClientsByEmailAddress(email_address);
+    }
+
+    public List<ClientDto> fetchClientsByShortName(String short_name) {
+        return url.getClientsByShortName(short_name);
+    }
+
+    public List<ClientDto> fetchClientsByTaxNo(String tax_no) {
+        return url.getClientsByTaxNo(tax_no);
     }
 }

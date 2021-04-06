@@ -36,4 +36,23 @@ public class ClientValidator {
         LOGGER.info("Client id = " + id + " has been updated.");
     }
 
+    public void validateClientsByName(String name) {
+        LOGGER.info("Starting fetching Client name: " + name);
+        LOGGER.info("Client name: " + name + " has been fetched.");
+    }
+
+    public void validateClientByEmailAddress(String email_address) {
+        LOGGER.info("Starting fetching Client email_address: " + email_address);
+        LOGGER.info("Client email_address: " + email_address + " has been fetched.");
+    }
+
+    public void validateClientByShortName(String short_name) {
+        LOGGER.info("Starting fetching Client short_name: " + short_name);
+        LOGGER.info("Client short_name: " + short_name + " has been fetched.");
+    }
+
+    public void validateClientsByTaxNo(String tax_no) {
+        LOGGER.info("Starting fetching Client tax_no: " + tax_no);
+        LOGGER.info("Client tax_no: " + tax_no + " has been fetched.");
+    }
 }

@@ -208,7 +208,7 @@ public class Url {
     }
 
     //Client
-    public List<ClientDto> getCustomers(){
+    public List<ClientDto> getClients(){
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients.json?" + invoiceConfig.getInvoiceToken())
                 .build().encode().toUri();
         try{
@@ -219,7 +219,7 @@ public class Url {
             return  new ArrayList<>();
         }
     }
-    public ClientDto getCustomerById(Long id){
+    public ClientDto getClientById(Long id){
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients/" + id + ".json?" + invoiceConfig.getInvoiceToken())
                 .build().encode().toUri();
         try{
@@ -229,7 +229,51 @@ public class Url {
             return  new ClientDto();
         }
     }
-    public ClientDto postCustomer(final AddClientDto addClientDto){
+    public List<ClientDto> getClientsByName(String name) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients.json?" + invoiceConfig.getInvoiceToken()+ "&name=" + name)
+                .build().encode().toUri();
+        try{
+            ClientDto[] clientResponse = restTemplate.getForObject(uri, ClientDto[].class);
+            return Arrays.asList(Optional.ofNullable(clientResponse).orElse(new ClientDto[0]));
+        }catch(RestClientException e){
+            LOGGER.error(e.getMessage(), e);
+            return  new ArrayList<>();
+        }
+    }
+    public List<ClientDto> getClientsByEmailAddress(String email_address) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients.json?" + invoiceConfig.getInvoiceToken()+ "&email=" + email_address)
+                .build().encode().toUri();
+        try{
+            ClientDto[] clientResponse = restTemplate.getForObject(uri, ClientDto[].class);
+            return Arrays.asList(Optional.ofNullable(clientResponse).orElse(new ClientDto[0]));
+        }catch(RestClientException e){
+            LOGGER.error(e.getMessage(), e);
+            return  new ArrayList<>();
+        }
+    }
+    public List<ClientDto> getClientsByShortName(String short_name) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients.json?" + invoiceConfig.getInvoiceToken()+ "&shortcut=" + short_name)
+                .build().encode().toUri();
+        try{
+            ClientDto[] clientResponse = restTemplate.getForObject(uri, ClientDto[].class);
+            return Arrays.asList(Optional.ofNullable(clientResponse).orElse(new ClientDto[0]));
+        }catch(RestClientException e){
+            LOGGER.error(e.getMessage(), e);
+            return  new ArrayList<>();
+        }
+    }
+    public List<ClientDto> getClientsByTaxNo(String tax_no) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients.json?" + invoiceConfig.getInvoiceToken()+ "&tax_no=" + tax_no)
+                .build().encode().toUri();
+        try{
+            ClientDto[] clientResponse = restTemplate.getForObject(uri, ClientDto[].class);
+            return Arrays.asList(Optional.ofNullable(clientResponse).orElse(new ClientDto[0]));
+        }catch(RestClientException e){
+            LOGGER.error(e.getMessage(), e);
+            return  new ArrayList<>();
+        }
+    }
+    public ClientDto postClient(final AddClientDto addClientDto){
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients.json")
                 .build().encode().toUri();
         try{
@@ -239,7 +283,7 @@ public class Url {
             return new ClientDto();
         }
     }
-    public void updateCustomer(final AddClientDto addClientDto, Long id) {
+    public void updateClient(final AddClientDto addClientDto, Long id) {
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients/" + id + ".json")
                 .build().encode().toUri();
         try{
@@ -248,7 +292,7 @@ public class Url {
             LOGGER.error(e.getMessage(), e);
         }
     }
-    public void deleteCustomerById(final Long id) {
+    public void deleteClient(final Long id) {
         URI uri = UriComponentsBuilder.fromHttpUrl(invoiceConfig.getInvoiceApiEndpoint() + ".fakturownia.pl/clients/" + id + "json?api_token=" + invoiceConfig.getToken())
                 .build().encode().toUri();
         try{

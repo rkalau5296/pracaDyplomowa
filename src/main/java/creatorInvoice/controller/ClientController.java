@@ -21,7 +21,29 @@ public class ClientController {
         return clientFacade.fetchClients();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/get/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/getName/{name}")
+    public List<ClientDto> getClientsByName(@PathVariable String name) {
+
+        return clientFacade.fetchClientsByName(name);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/getEmail/{email_address}")
+    public List<ClientDto> getClientsByEmailAddress(@PathVariable String email_address) {
+
+        return clientFacade.fetchClientsByEmailAddress(email_address);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getShortcut/{short_name}")
+    public List<ClientDto> getClientsByShortName(@PathVariable String short_name) {
+
+        return clientFacade.fetchClientsByShortName(short_name);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/getTaxNo/{tax_no}")
+    public List<ClientDto> getClientsByTaxNo(@PathVariable String tax_no) {
+
+        return clientFacade.fetchClientsByTaxNo(tax_no);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getId/{id}")
     public ClientDto getClient (@PathVariable Long id) {
         return clientFacade.fetchClientById(id);
     }
