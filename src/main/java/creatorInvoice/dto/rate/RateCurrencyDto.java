@@ -1,19 +1,20 @@
 package creatorInvoice.dto.rate;
 
 import creatorInvoice.model.RatesCurrency;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class RateCurrencyDto {
 
-    private String table;
-    private String currency;
-    private String code;
-    private List<RatesCurrency> rates;
+    String table;
+    String currency;
+    String code;
+    List<RatesCurrency> rates;
+
 }

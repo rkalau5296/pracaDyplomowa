@@ -326,7 +326,7 @@ public class Url {
             return  new ArrayList<>();
         }
     }
-    public RateCurrencyDto getRateAPArticularCurrency(String table, String code){
+    public RateCurrencyDto getRateAParticularCurrency(String table, String code){
         URI uri = UriComponentsBuilder.fromHttpUrl(rateConfig.getRateEndPoint() + "exchangerates/rates/" + table + "/" + code)
                 .build().encode().toUri();
         try{

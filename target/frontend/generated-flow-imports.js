@@ -1,18 +1,24 @@
-const div = document.createElement('div');
-div.innerHTML = '<custom-style><style include="lumo-color lumo-typography"></style></custom-style>';
-document.head.insertBefore(div.firstElementChild, document.head.firstChild);
+export const addCssBlock = function(block, before = false) {
+ const tpl = document.createElement('template');
+ tpl.innerHTML = block;
+ document.head[before ? 'insertBefore' : 'appendChild'](tpl.content, document.head.firstChild);
+};
+
+addCssBlock('<custom-style><style include="lumo-color lumo-typography"></style></custom-style>', true);
 
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-list/iron-list.js';
-import '@vaadin/flow-frontend/comboBoxConnector-es6.js';
-import '@vaadin/flow-frontend/contextMenuConnector-es6.js';
+import '@vaadin/flow-frontend/ConnectionIndicator.js';
+import '@vaadin/flow-frontend/comboBoxConnector.js';
+import '@vaadin/flow-frontend/contextMenuConnector.js';
 import '@vaadin/flow-frontend/datepickerConnector.js';
 import '@vaadin/flow-frontend/dndConnector-es6.js';
 import '@vaadin/flow-frontend/flow-component-renderer.js';
-import '@vaadin/flow-frontend/gridConnector-es6.js';
-import '@vaadin/flow-frontend/ironListConnector-es6.js';
+import '@vaadin/flow-frontend/gridConnector.js';
+import '@vaadin/flow-frontend/ironListConnector.js';
 import '@vaadin/flow-frontend/ironListStyles.js';
 import '@vaadin/flow-frontend/menubarConnector.js';
+import '@vaadin/flow-frontend/selectConnector.js';
 import '@vaadin/flow-frontend/timepickerConnector.js';
 import '@vaadin/flow-frontend/vaadin-big-decimal-field.js';
 import '@vaadin/flow-frontend/vaadin-grid-flow-selection-column.js';
@@ -70,9 +76,3 @@ import '@vaadin/vaadin-text-field/theme/lumo/vaadin-text-field.js';
 import '@vaadin/vaadin-time-picker/theme/lumo/vaadin-time-picker.js';
 import '@vaadin/vaadin-upload/src/vaadin-upload-file.js';
 import '@vaadin/vaadin-upload/theme/lumo/vaadin-upload.js';
-import '@vaadin/flow-frontend/comboBoxConnector.js';
-import '@vaadin/flow-frontend/contextMenuConnector.js';
-import '@vaadin/flow-frontend/dndConnector.js';
-import '@vaadin/flow-frontend/gridConnector.js';
-import '@vaadin/flow-frontend/ironListConnector.js';
-import '@vaadin/flow-frontend/selectConnector.js';

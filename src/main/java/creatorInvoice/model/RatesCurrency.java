@@ -1,15 +1,21 @@
 package creatorInvoice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class RatesCurrency {
 
-    private String no;
+    String no;
     private String effectiveDate;
-    private double mid;
+    double mid;
+
+    @Override
+    public String toString() {
+        return "" + mid;
+    }
 }

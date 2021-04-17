@@ -21,6 +21,6 @@ public class RateDtoService {
         return url.getRatesInDateRangeFromTo(table, startDate, endDate);
     }
     public RateCurrencyDto fetchRateAParticularCurrency(String table, String code) {
-        return url.getRateAPArticularCurrency(table, code);
+        return url.getRateAParticularCurrency(table, code);
     }
 }
