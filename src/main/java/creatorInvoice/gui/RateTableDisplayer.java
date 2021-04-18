@@ -108,6 +108,7 @@ public class RateTableDisplayer extends VerticalLayout {
         catch (Exception e){
             Notification notification = Notification.show(
                     "Nie ma takiego kodu waluty");
+            notification.setPosition(Notification.Position.TOP_CENTER);
             add(notification);
         }
     }

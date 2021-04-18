@@ -41,6 +41,7 @@ public class AppLayoutWithNavbarMenu extends AppLayout {
         Tab rates = new Tab("Kursy");
         Div ratesPage = new Div();
         ratesPage.add(rateTableDisplayer);
+        //UI.getCurrent().getPage().reload();
         productsPage.setVisible(false);
 
         Map<Tab, Component> tabsToPages = new HashMap<>();
@@ -66,7 +67,4 @@ public class AppLayoutWithNavbarMenu extends AppLayout {
         //add(ratesPage);
     }
 
-    public void openRateTableDisplayerPage() {
-        UI.getCurrent().navigate("ratetabledisplayer");
-    }
 }
