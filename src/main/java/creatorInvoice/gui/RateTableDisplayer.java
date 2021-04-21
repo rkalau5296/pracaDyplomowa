@@ -1,9 +1,13 @@
 package creatorInvoice.gui;
 
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -32,10 +36,12 @@ public class RateTableDisplayer extends VerticalLayout {
     private final Button buttonCurrency;
     private final Url url;
 
+
     @Autowired
     public RateTableDisplayer(Url url) {
 
         this.url = url;
+
         comboBox = new ComboBox<>();
         comboBox.setItems("A", "B", "C");
         comboBox.setAutoOpen(false);
@@ -65,6 +71,7 @@ public class RateTableDisplayer extends VerticalLayout {
         currencyGrid.setWidth("100%");
         currencyGrid.setHeight("100px");
         currencyGrid.setVisible(false);
+
 
         add(comboBox, tableGrid, rateGrid, currencyField, buttonCurrency, currencyGrid);
     }
