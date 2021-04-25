@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class AddProductDto {
 
-    private Long id;
+
     private String api_token;
-    private Product product;
+    private ProductDto product;
 
 }

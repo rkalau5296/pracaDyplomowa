@@ -1,37 +1,32 @@
 package creatorInvoice.gui;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasComponents;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.page.Page;
-import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.PWA;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.context.annotation.Bean;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.vaadin.flow.component.UI.getCurrent;
+
 
 @Route("")
 @PreserveOnRefresh
 public class AppLayoutWithNavbarMenu extends AppLayout {
 
-    @Autowired
+
     private final RateTableDisplayer rateTableDisplayer;
+    private final ProductDisplayer productDisplayer;
 
-    public AppLayoutWithNavbarMenu(RateTableDisplayer rateTableDisplayer) {
+    @Autowired
+    public AppLayoutWithNavbarMenu(RateTableDisplayer rateTableDisplayer, ProductDisplayer productDisplayer) {
 
+        this.productDisplayer = productDisplayer;
         this.rateTableDisplayer = rateTableDisplayer;
         Image img = new Image("frontend/pw.png", "");
         img.setHeight("44px");
@@ -42,7 +37,8 @@ public class AppLayoutWithNavbarMenu extends AppLayout {
 //
         Tab products = new Tab("Produkty");
         Div productsPage = new Div();
-        productsPage.setText("Produkty");
+        productsPage.add(productDisplayer);
+        //productsPage.setText("Produkty");
         productsPage.setVisible(false);
 
 
