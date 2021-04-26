@@ -30,8 +30,5 @@ public class ProductDto {
     private String price_gross;
     
     private String price_tax;
-    
-    private String form_name;
-    
-    private String form_description;
+
 }

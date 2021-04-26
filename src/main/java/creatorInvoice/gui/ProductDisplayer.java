@@ -2,7 +2,6 @@ package creatorInvoice.gui;
 
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
@@ -14,12 +13,8 @@ import creatorInvoice.config.InvoiceConfig;
 import creatorInvoice.controller.ProductController;
 import creatorInvoice.dto.product.AddProductDto;
 import creatorInvoice.dto.product.ProductDto;
-import creatorInvoice.url.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Component
@@ -37,8 +32,7 @@ public class ProductDisplayer extends VerticalLayout {
         this.productController = productController;
         this.invoiceConfig=invoiceConfig;
         productGrid = new Grid<>(ProductDto.class);
-        productGrid.setWidth("3500px");
-        productGrid.setColumnReorderingAllowed(true);
+        productGrid.setWidth("3000px");
         productGrid.addComponentColumn(item-> new Button("Usuń", buttonClickEvent -> {
             deleteDialog(item.getId()).open();
         }));
@@ -62,9 +56,6 @@ public class ProductDisplayer extends VerticalLayout {
             addProductsByIdToGrid(integerField.getValue());
         });
 
-
-
-
         Button newProduct = new Button("Nowy product");
         newProduct.addClickListener(buttonClickEvent -> addNewVehicleDialog().open());
 
@@ -72,11 +63,6 @@ public class ProductDisplayer extends VerticalLayout {
         upperLayout.addItemWithLabel("", getProductByIdButton);
         upperLayout.addItemWithLabel("", getProductButton);
         upperLayout.addItemWithLabel("", integerField);
-
-
-
-
-
 
         MyCustomLayout lowerLayout = new MyCustomLayout();
         lowerLayout.addItemWithLabel("", newProduct);
@@ -86,6 +72,17 @@ public class ProductDisplayer extends VerticalLayout {
 
     public void addProductsToGrid(){
         productGrid.setItems(productController.getProducts());
+//        productGrid.removeAllColumns();
+//        productGrid.addColumn(ProductDto::getId).setHeader("Id");
+//        productGrid.addColumn(ProductDto::getName).setHeader("Name");
+//        productGrid.addColumn(ProductDto::getDescription).setHeader("Description");
+//        productGrid.addColumn(ProductDto::getPrice_net).setHeader("Price_net");
+//        productGrid.addColumn(ProductDto::getPrice_tax).setHeader("Price_tax");
+//        productGrid.addColumn(ProductDto::getTax).setHeader("Tax");
+//        productGrid.addColumn(ProductDto::getPrice_gross).setHeader("Price_gross");
+//        productGrid.addColumn(ProductDto::getCreated_at).setHeader("Created_at");
+//        productGrid.addColumn(ProductDto::getUpdated_at).setHeader("Update_at");
+
     }
 
     public void addProductsByIdToGrid(long id) {
@@ -113,43 +110,39 @@ public class ProductDisplayer extends VerticalLayout {
         name.setValue(productDto.getName());
 
         TextField description = new TextField("Opis");
-        if(productDto.getDescription()!=null)
-        description.setValue(productDto.getDescription());
-        else{
-            description.setValue("Puste");
-        }
+        if(productDto.getDescription()==null)
+            description.setValue("");
+        else
+            description.setValue(productDto.getDescription());
 
         TextField price_net = new TextField("Cena netto");
-        price_net.setValue(productDto.getPrice_net());
+        if(productDto.getPrice_net()==null)
+            price_net.setValue("");
+        else
+            price_net.setValue(productDto.getPrice_net());
 
         TextField tax = new TextField("Wysokość podatku");
-        tax.setValue(productDto.getTax());
+        if(productDto.getTax()==null)
+            tax.setValue("");
+        else
+            tax.setValue(productDto.getTax());
 
         TextField price_gross = new TextField("Cena brutto");
-        price_gross.setValue(productDto.getPrice_gross());
+        if(productDto.getPrice_gross()==null)
+            price_gross.setValue("");
+        else
+            price_gross.setValue(productDto.getPrice_gross());
+
 
         TextField price_tax = new TextField("Kwota podatku");
-        price_tax.setValue(productDto.getPrice_tax());
-
-        TextField form_name = new TextField("Nazwa produktu");
-        form_name.setValue(productDto.getForm_name());
-
-        TextField form_description = new TextField("Opis produktu");
-        form_description.setValue(productDto.getForm_description());
-        if(productDto.getForm_description()!=null)
-            form_description.setValue(productDto.getForm_description());
-        else{
-            form_description.setValue("Puste");
-        }
+        if(productDto.getPrice_tax()==null)
+            price_tax.setValue("");
+        else
+            price_tax.setValue(productDto.getPrice_tax());
 
 
         Button save = new Button("Save", buttonClickEvent -> {
-//            if(name.getValue()==null)
-//            {
-//                Notification notification = Notification.show(
-//                        "Nie wprowadzono wszystkich danych. Wypełnij wszystkie pola.");
-//                add(notification);
-//            }
+
             ProductDto product = new ProductDto(
                     id.getValue(),
                     name.getValue(),
@@ -159,15 +152,22 @@ public class ProductDisplayer extends VerticalLayout {
                     productDto.getCreated_at(),
                     productDto.getUpdated_at(),
                     price_gross.getValue(),
-                    price_tax.getValue(),
-                    form_name.getValue(),
-                    form_description.getValue()
+                    price_tax.getValue()
 
             );
 
-            productController.updateProduct(new AddProductDto(invoiceConfig.getToken(), product), (long)productDto.getId());
-            addProductsToGrid();
-            dialog.close();
+            if(name.getValue().equals(""))
+            {
+                Notification notification = Notification.show(
+                        "Pole 'nazwa' nie może być puste. Podaj nazwę produktu");
+                notification.setPosition(Notification.Position.TOP_CENTER);
+                add(notification);
+            }
+            else {
+                productController.updateProduct(new AddProductDto(invoiceConfig.getToken(), product), (long) productDto.getId());
+                addProductsToGrid();
+                dialog.close();
+            }
         });
         Button abort = new Button("Cancel", buttonClickEvent -> {
             dialog.close();
@@ -182,8 +182,6 @@ public class ProductDisplayer extends VerticalLayout {
         layout.addItemWithLabel("",tax);
         layout.addItemWithLabel("",price_gross);
         layout.addItemWithLabel("",price_tax);
-        layout.addItemWithLabel("",form_name);
-        layout.addItemWithLabel("",form_description);
         layout.addItemWithLabel("",abort);
         layout.addItemWithLabel("",save);
 
@@ -191,6 +189,7 @@ public class ProductDisplayer extends VerticalLayout {
 
         return dialog;
     }
+
     public Dialog addNewVehicleDialog() {
 
         Dialog dialog = new Dialog(new Text("Dodawanie nowego produktu"));

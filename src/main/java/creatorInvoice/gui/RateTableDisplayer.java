@@ -1,18 +1,12 @@
 package creatorInvoice.gui;
 
-
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
-
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-
 import creatorInvoice.dto.rate.RateCurrencyDto;
 import creatorInvoice.dto.rate.RateDto;
 import creatorInvoice.dto.rate.RateTableDto;

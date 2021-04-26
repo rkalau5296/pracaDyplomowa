@@ -32,9 +32,5 @@ public class Product {
     private String price_gross;
     @Column
     private String price_tax;
-    @Column
-    private String form_name;
-    @Column
-    private String form_description;
 
 }

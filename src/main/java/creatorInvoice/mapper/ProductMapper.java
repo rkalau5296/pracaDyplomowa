@@ -21,9 +21,7 @@ public class ProductMapper {
                         p.getCreated_at(),
                         p.getUpdated_at(),
                         p.getPrice_gross(),
-                        p.getPrice_tax(),
-                        p.getForm_name(),
-                        p.getForm_description()
+                        p.getPrice_tax()
                 ))
                 .collect(toList());
     }
