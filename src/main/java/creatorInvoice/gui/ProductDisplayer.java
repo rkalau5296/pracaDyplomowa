@@ -16,6 +16,10 @@ import creatorInvoice.dto.product.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.xml.crypto.Data;
+import java.time.LocalDate;
+import java.util.Date;
+
 
 @Component
 @Route
@@ -32,7 +36,17 @@ public class ProductDisplayer extends VerticalLayout {
         this.productController = productController;
         this.invoiceConfig=invoiceConfig;
         productGrid = new Grid<>(ProductDto.class);
-        productGrid.setWidth("3000px");
+        productGrid.removeAllColumns();
+        productGrid.addColumn(ProductDto::getId).setHeader("Id");
+        productGrid.addColumn(ProductDto::getName).setHeader("Name");
+        productGrid.addColumn(ProductDto::getDescription).setHeader("Description");
+        productGrid.addColumn(ProductDto::getPrice_net).setHeader("Price_net");
+        productGrid.addColumn(ProductDto::getPrice_tax).setHeader("Price_tax");
+        productGrid.addColumn(ProductDto::getTax).setHeader("Tax");
+        productGrid.addColumn(ProductDto::getPrice_gross).setHeader("Price_gross");
+        productGrid.addColumn(ProductDto::getCreated_at).setHeader("Created_at");
+        productGrid.addColumn(ProductDto::getUpdated_at).setHeader("Update_at");
+        productGrid.setWidth("1650px");
         productGrid.addComponentColumn(item-> new Button("Usuń", buttonClickEvent -> {
             deleteDialog(item.getId()).open();
         }));
@@ -45,6 +59,7 @@ public class ProductDisplayer extends VerticalLayout {
         getProductButton.addClickListener(buttonClickEvent -> addProductsToGrid());
 
         integerField = new IntegerField("Podaj id produktu");
+
         Button getProductByIdButton = new Button("Pobierz produkt po id");
 
         getProductByIdButton.addClickListener(buttonClickEvent -> {
@@ -72,17 +87,6 @@ public class ProductDisplayer extends VerticalLayout {
 
     public void addProductsToGrid(){
         productGrid.setItems(productController.getProducts());
-//        productGrid.removeAllColumns();
-//        productGrid.addColumn(ProductDto::getId).setHeader("Id");
-//        productGrid.addColumn(ProductDto::getName).setHeader("Name");
-//        productGrid.addColumn(ProductDto::getDescription).setHeader("Description");
-//        productGrid.addColumn(ProductDto::getPrice_net).setHeader("Price_net");
-//        productGrid.addColumn(ProductDto::getPrice_tax).setHeader("Price_tax");
-//        productGrid.addColumn(ProductDto::getTax).setHeader("Tax");
-//        productGrid.addColumn(ProductDto::getPrice_gross).setHeader("Price_gross");
-//        productGrid.addColumn(ProductDto::getCreated_at).setHeader("Created_at");
-//        productGrid.addColumn(ProductDto::getUpdated_at).setHeader("Update_at");
-
     }
 
     public void addProductsByIdToGrid(long id) {
@@ -195,20 +199,46 @@ public class ProductDisplayer extends VerticalLayout {
         Dialog dialog = new Dialog(new Text("Dodawanie nowego produktu"));
 
         IntegerField integerField = new IntegerField("Id");
-        TextField brand = new TextField("Brand");
-        TextField color = new TextField("Color");
-        TextField model = new TextField("Model");
+        integerField.setValue(0);
+
+        TextField name = new TextField("Nazwa");
+
+        TextField description = new TextField("Opis");
+
+        TextField price_net = new TextField("Cena netto");
+
+        TextField tax = new TextField("Wysokość podatku");
+
+        TextField price_gross = new TextField("Cena brutto");
+
+        TextField price_tax = new TextField("Kwota podatku");
 
         Button save = new Button("Save", buttonClickEvent -> {
-            if(integerField.getValue()==null|| brand.getValue()==null || color.getValue()==null||model.getValue()==null)
+
+            ProductDto product = new ProductDto(
+                    integerField.getValue(),
+                    name.getValue(),
+                    description.getValue(),
+                    price_net.getValue(),
+                    tax.getValue(),
+                    new Date(),
+                    new Date(),
+                    price_gross.getValue(),
+                    price_tax.getValue()
+
+            );
+            if(name.getValue().equals(""))
             {
                 Notification notification = Notification.show(
-                        "Nie wprowadzono wszystkich danych. Wypełnij wszystkie pola.");
+                        "Pole 'nazwa' nie może być puste. Podaj nazwę produktu");
+                notification.setPosition(Notification.Position.TOP_CENTER);
                 add(notification);
             }
-            //url.postProduct(new Product(integerField.getValue(), brand.getValue(), color.getValue(), model.getValue()));
-            addProductsToGrid();
-            dialog.close();
+            else {
+                productController.createProduct(new AddProductDto(invoiceConfig.getToken(), product));
+                addProductsToGrid();
+                dialog.close();
+            }
         });
         Button cancel = new Button("Cancel", buttonClickEvent -> {
             dialog.close();
@@ -216,10 +246,12 @@ public class ProductDisplayer extends VerticalLayout {
 
         MyCustomLayout upperLayout = new MyCustomLayout();
 
-        upperLayout.addItemWithLabel("",integerField);
-        upperLayout.addItemWithLabel("",brand);
-        upperLayout.addItemWithLabel("",color);
-        upperLayout.addItemWithLabel("",model);
+        upperLayout.addItemWithLabel("", name);
+        upperLayout.addItemWithLabel("", description);
+        upperLayout.addItemWithLabel("", price_net);
+        upperLayout.addItemWithLabel("", tax);
+        upperLayout.addItemWithLabel("", price_gross);
+        upperLayout.addItemWithLabel("", price_tax);
         upperLayout.addItemWithLabel("", cancel);
         upperLayout.addItemWithLabel("",save);
 
@@ -252,4 +284,6 @@ public class ProductDisplayer extends VerticalLayout {
 
         return dialog;
     }
+
+    //TODO filtry name, description
 }
