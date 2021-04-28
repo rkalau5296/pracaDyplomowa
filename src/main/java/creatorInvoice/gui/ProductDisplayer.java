@@ -18,7 +18,8 @@ import org.springframework.stereotype.Component;
 
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -29,6 +30,8 @@ public class ProductDisplayer extends VerticalLayout {
     private final Grid<ProductDto> productGrid;
     private final IntegerField integerField;
     private final InvoiceConfig invoiceConfig;
+    private final TextField name;
+
 
     @Autowired
     public ProductDisplayer(InvoiceConfig invoiceConfig, ProductController productController){
@@ -46,7 +49,7 @@ public class ProductDisplayer extends VerticalLayout {
         productGrid.addColumn(ProductDto::getPrice_gross).setHeader("Price_gross");
         productGrid.addColumn(ProductDto::getCreated_at).setHeader("Created_at");
         productGrid.addColumn(ProductDto::getUpdated_at).setHeader("Update_at");
-        productGrid.setWidth("1650px");
+        productGrid.setWidth("1700px");
         productGrid.addComponentColumn(item-> new Button("Usuń", buttonClickEvent -> {
             deleteDialog(item.getId()).open();
         }));
@@ -55,29 +58,39 @@ public class ProductDisplayer extends VerticalLayout {
             updateProductDialog(item).open();
         }));
 
-        Button getProductButton = new Button("Pobierz produkty");
-        getProductButton.addClickListener(buttonClickEvent -> addProductsToGrid());
+        Button getProductButton = new Button("Pobierz wszystkie produkty");
+        getProductButton.addClickListener(buttonClickEvent -> fetchProductsAndAddToGrid());
 
         integerField = new IntegerField("Podaj id produktu");
-
         Button getProductByIdButton = new Button("Pobierz produkt po id");
+        getProductByIdButton.addClickListener(buttonClickEvent ->{
 
-        getProductByIdButton.addClickListener(buttonClickEvent -> {
-            if(integerField.getValue()==null){
-                Notification notification = Notification.show(
-                        "Nie wprowadzono nr id. Puste pole. Wprowadź nr id.");
-                add(notification);
-            }
-            addProductsByIdToGrid(integerField.getValue());
+                if(integerField.isEmpty())
+                {
+                    Notification notification = Notification.show(
+                            "Puste pole. Podaj prawidłowe id.");
+                    notification.setPosition(Notification.Position.TOP_CENTER);
+                    add(notification);
+                }else{
+                fetchProductsByIdAndAddToGrid(integerField.getValue(), productController.getProduct((long)integerField.getValue()));
+                }
         });
 
         Button newProduct = new Button("Nowy product");
-        newProduct.addClickListener(buttonClickEvent -> addNewVehicleDialog().open());
+        newProduct.addClickListener(buttonClickEvent -> addNewProductDialog().open());
+
+        name = new TextField("Nazwa");
+        Button getProductByNameButton = new Button("Pobierz produkt po nazwie");
+        getProductByNameButton.addClickListener(event -> fetchProductByNameAndToGrid(name.getValue(), productController.getProducts()));
+
 
         MyCustomLayout upperLayout = new MyCustomLayout();
-        upperLayout.addItemWithLabel("", getProductByIdButton);
-        upperLayout.addItemWithLabel("", getProductButton);
         upperLayout.addItemWithLabel("", integerField);
+        upperLayout.addItemWithLabel("", getProductByIdButton);
+        upperLayout.addItemWithLabel("", name);
+        upperLayout.addItemWithLabel("", getProductByNameButton);
+
+        upperLayout.addItemWithLabel("", getProductButton);
 
         MyCustomLayout lowerLayout = new MyCustomLayout();
         lowerLayout.addItemWithLabel("", newProduct);
@@ -85,22 +98,55 @@ public class ProductDisplayer extends VerticalLayout {
         add(upperLayout, productGrid, lowerLayout);
     }
 
-    public void addProductsToGrid(){
-        productGrid.setItems(productController.getProducts());
+    public void fetchProductsAndAddToGrid(){
+
+        List<ProductDto> productDtos = productController.getProducts();
+        productDtos.sort(Comparator.comparingInt(ProductDto::getId));
+
+        productGrid.setItems(productDtos);
     }
 
-    public void addProductsByIdToGrid(long id) {
-        try{
-            productGrid.setItems(productController.getProduct(id));
-        }
-        catch (Exception e){
+    public void fetchProductsByIdAndAddToGrid(long id, ProductDto productDto) {
+
+
+        if (productDto.getId()!=id){
             Notification notification = Notification.show(
                     "Id z poza zakresu, nie ma takiego id. Podaj prawidłowe id.");
+            notification.setPosition(Notification.Position.TOP_CENTER);
             add(notification);
+        }
+       else {
+            productGrid.setItems(productDto);
         }
     }
 
+    public void fetchProductByNameAndToGrid(String name, List<ProductDto> products) {
 
+
+        List<ProductDto> newProductsLit = products.stream()
+                .filter(productDto -> productDto.getName().equals(name))
+                .sorted(Comparator.comparingInt(ProductDto::getId))
+                .collect(Collectors.toList());
+
+
+        if(newProductsLit.isEmpty()){
+            Notification notification = Notification.show(
+                    "Błedna nazwa, nie ma produktu o takiej nazwie. Podaj prawidłową nazwę.");
+            notification.setPosition(Notification.Position.TOP_CENTER);
+            add(notification);
+        }else {
+            productGrid.setItems(newProductsLit);
+        }
+
+    }
+    public void fetchProductByDescriptionAndToGrid(String description, List<ProductDto> products) {
+
+        productGrid.setItems(products.stream()
+                .filter(productDto -> productDto.getName().equals(description))
+                .sorted(Comparator.comparingInt(ProductDto::getId))
+                .collect(Collectors.toList()));
+
+    }
     public Dialog updateProductDialog(ProductDto productDto) {
 
 
@@ -169,7 +215,7 @@ public class ProductDisplayer extends VerticalLayout {
             }
             else {
                 productController.updateProduct(new AddProductDto(invoiceConfig.getToken(), product), (long) productDto.getId());
-                addProductsToGrid();
+                fetchProductsAndAddToGrid();
                 dialog.close();
             }
         });
@@ -194,7 +240,7 @@ public class ProductDisplayer extends VerticalLayout {
         return dialog;
     }
 
-    public Dialog addNewVehicleDialog() {
+    public Dialog addNewProductDialog() {
 
         Dialog dialog = new Dialog(new Text("Dodawanie nowego produktu"));
 
@@ -236,7 +282,7 @@ public class ProductDisplayer extends VerticalLayout {
             }
             else {
                 productController.createProduct(new AddProductDto(invoiceConfig.getToken(), product));
-                addProductsToGrid();
+                fetchProductsAndAddToGrid();
                 dialog.close();
             }
         });
@@ -267,7 +313,7 @@ public class ProductDisplayer extends VerticalLayout {
         Text emptyText = new Text("   ");
         Button delete = new Button("Usuń", buttonClickEvent -> {
             productController.deleteProduct((long)id);
-            addProductsToGrid();
+            fetchProductsAndAddToGrid();
             dialog.close();
         });
         Button cancel = new Button("Cancel", buttonClickEvent -> {
@@ -285,5 +331,4 @@ public class ProductDisplayer extends VerticalLayout {
         return dialog;
     }
 
-    //TODO filtry name, description
 }
