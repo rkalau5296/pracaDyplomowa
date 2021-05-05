@@ -31,7 +31,7 @@ public class ProductDisplayer extends VerticalLayout {
     private final IntegerField integerField;
     private final InvoiceConfig invoiceConfig;
     private final TextField name;
-
+    private final TextField description;
 
     @Autowired
     public ProductDisplayer(InvoiceConfig invoiceConfig, ProductController productController){
@@ -83,13 +83,18 @@ public class ProductDisplayer extends VerticalLayout {
         Button getProductByNameButton = new Button("Pobierz produkt po nazwie");
         getProductByNameButton.addClickListener(event -> fetchProductByNameAndToGrid(name.getValue(), productController.getProducts()));
 
+        description = new TextField("Opis");
+        Button getProductByDescriptionButton = new Button("Pobierz produkt po opisie");
+        getProductByDescriptionButton.addClickListener(event -> fetchProductByDescriptionAndToGrid(description.getValue(), productController.getProducts()));
 
         MyCustomLayout upperLayout = new MyCustomLayout();
+
         upperLayout.addItemWithLabel("", integerField);
         upperLayout.addItemWithLabel("", getProductByIdButton);
         upperLayout.addItemWithLabel("", name);
         upperLayout.addItemWithLabel("", getProductByNameButton);
-
+        upperLayout.addItemWithLabel("", description);
+        upperLayout.addItemWithLabel("", getProductByDescriptionButton);
         upperLayout.addItemWithLabel("", getProductButton);
 
         MyCustomLayout lowerLayout = new MyCustomLayout();
@@ -122,31 +127,38 @@ public class ProductDisplayer extends VerticalLayout {
 
     public void fetchProductByNameAndToGrid(String name, List<ProductDto> products) {
 
-
-        List<ProductDto> newProductsLit = products.stream()
+        List<ProductDto> productListByName = products.stream()
                 .filter(productDto -> productDto.getName().equals(name))
                 .sorted(Comparator.comparingInt(ProductDto::getId))
                 .collect(Collectors.toList());
 
-
-        if(newProductsLit.isEmpty()){
+        if(productListByName.isEmpty()){
             Notification notification = Notification.show(
                     "Błedna nazwa, nie ma produktu o takiej nazwie. Podaj prawidłową nazwę.");
             notification.setPosition(Notification.Position.TOP_CENTER);
             add(notification);
         }else {
-            productGrid.setItems(newProductsLit);
+            productGrid.setItems(productListByName);
         }
 
     }
-    public void fetchProductByDescriptionAndToGrid(String description, List<ProductDto> products) {
-
-        productGrid.setItems(products.stream()
-                .filter(productDto -> productDto.getName().equals(description))
+    public void fetchProductByDescriptionAndToGrid(String desc, List<ProductDto> products) {
+        //TO DO - sprawdzić, dlaczego nie porównuje i nie zwraca productDto
+        List<ProductDto> productListByDescription = products.stream()
+                .filter(productDto -> productDto.getDescription()==desc)
                 .sorted(Comparator.comparingInt(ProductDto::getId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
+        if(productListByDescription.isEmpty()){
+            Notification notification = Notification.show(
+                    "Błedny opis, nie ma produktu o takim opisie. Podaj prawidłowy opis.");
+            notification.setPosition(Notification.Position.TOP_CENTER);
+            add(notification);
+        }else {
+            productGrid.setItems(productListByDescription);
+        }
     }
+
     public Dialog updateProductDialog(ProductDto productDto) {
 
 

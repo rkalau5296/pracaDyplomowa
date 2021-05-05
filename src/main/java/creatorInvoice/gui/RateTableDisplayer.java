@@ -7,6 +7,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import creatorInvoice.controller.RateController;
 import creatorInvoice.dto.rate.RateCurrencyDto;
 import creatorInvoice.dto.rate.RateDto;
 import creatorInvoice.dto.rate.RateTableDto;
@@ -28,13 +29,13 @@ public class RateTableDisplayer extends VerticalLayout {
     private final Grid<RateDto> rateGrid;
     private final Grid<RateCurrencyDto> currencyGrid;
     private final Button buttonCurrency;
-    private final Url url;
+    private final RateController rateController;
 
 
     @Autowired
-    public RateTableDisplayer(Url url) {
+    public RateTableDisplayer(RateController rateController) {
 
-        this.url = url;
+        this.rateController = rateController;
 
         comboBox = new ComboBox<>();
         comboBox.setItems("A", "B", "C");
@@ -79,7 +80,7 @@ public class RateTableDisplayer extends VerticalLayout {
 
         RateTableDto rateTable = new RateTableDto();
         rateTable.setTable(comboBox.getValue());
-        List<RateTableDto> rateTableDtos = url.getRates(comboBox.getValue());
+        List<RateTableDto> rateTableDtos = rateController.getRates(comboBox.getValue());
         rateTable.setNo(rateTableDtos.get(0).getNo());
         rateTable.setEffectiveDate(rateTableDtos.get(0).getEffectiveDate());
         List<RateDto> rateDtoList = rateTableDtos.get(0).getRates();
@@ -93,7 +94,7 @@ public class RateTableDisplayer extends VerticalLayout {
             RateCurrencyDto rateCurrencyDto = new RateCurrencyDto();
             rateCurrencyDto.setCode(currencyField.getValue());
             rateCurrencyDto.setTable(comboBox.getValue());
-            RateCurrencyDto currencyDto = url.getRateAParticularCurrency(comboBox.getValue(), currencyField.getValue());
+            RateCurrencyDto currencyDto = rateController.getRateAParticularCurrency(comboBox.getValue(), currencyField.getValue());
             rateCurrencyDto.setCurrency(currencyDto.getCurrency());
             rateCurrencyDto.setRates(currencyDto.getRates());
 
@@ -113,4 +114,5 @@ public class RateTableDisplayer extends VerticalLayout {
             add(notification);
         }
     }
+    //TODO dodać datapicker i sprawdzić dlaczego nie się nie kompiluje.
 }
