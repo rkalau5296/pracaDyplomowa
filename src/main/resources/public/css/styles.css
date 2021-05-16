@@ -1,0 +1,11 @@
+iron-icon{
+    float: right;
+}
+iron-icon:hover {
+    transform: scale(1.5);
+    transition: 0.5s;
+    cursor: pointer;
+}
+.button-collor {
+    background-color: greenyellow;
+}

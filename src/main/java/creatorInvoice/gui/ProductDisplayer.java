@@ -16,8 +16,6 @@ import creatorInvoice.dto.product.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
